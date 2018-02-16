@@ -5,6 +5,9 @@ services:
   - postgresql
 env: # => 4
   -DJANGO_ENV=production DATABASE_URL = postgres://postgres@localhost/test_db
+before_install:
+  sudo add-apt-repository ppa:ubuntugis/ppa && sudo apt-get update
+  sudo apt-get install gdal-bin
 install:
   - pip install -r requirements/requirements.txt
 before_script:
