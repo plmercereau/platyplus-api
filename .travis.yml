@@ -11,7 +11,7 @@ addons:
     - postgresql-9.6-postgis-2.3
     - libgdal-dev
 install:
-  - pip install -r requirements/requirements.txt
+  - pip install -r requirements.txt
 before_script:
  # check gis
   - gdal-config --version
