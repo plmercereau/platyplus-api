@@ -1,16 +1,25 @@
+sudo: false
 language: python
 python:
   - "3.6"
 services:
   - postgresql
-env: # => 4
+addons:
+  postgresql: "9.6"
+  apt:
+    packages:
+    - postgresql-9.6-postgis-2.3
+    - libgdal-dev
+env:
   -DJANGO_ENV=production DATABASE_URL = postgres://postgres@localhost/test_db
-before_install:
-  sudo add-apt-repository -y ppa:ubuntugis/ppa && sudo apt-get -y update
-  sudo apt-get -y install gdal-bin
 install:
   - pip install -r requirements/requirements.txt
 before_script:
+ # check gis
+  - gdal-config --version
+  - gdal-config --cflags
+  - psql -U postgres -c "create extension postgis"
+  # set up postgresql
   - psql -c 'create database test_db;' -U postgres
 # command to run tests
 script:
