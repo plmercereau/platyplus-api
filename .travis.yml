@@ -4,7 +4,7 @@ python:
 services:
   - postgresql
 env: # => 4
-  -DJANGO_ENV=prod DATABASE_URL = postgres://postgres@localhost/test_db
+  -DJANGO_ENV=production DATABASE_URL = postgres://postgres@localhost/test_db
 install:
   - pip install -r requirements/requirements.txt
 before_script:
