@@ -18,3 +18,5 @@ python manage.py runserver
 ```
 
 You should be able to access the server on [here](http://localhost:8000/graphql).
+
+TODO: env variables
