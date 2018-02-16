@@ -10,8 +10,6 @@ addons:
     packages:
     - postgresql-9.6-postgis-2.3
     - libgdal-dev
-env:
-  -DJANGO_ENV=production DATABASE_URL = postgres://postgres@localhost/test_db
 install:
   - pip install -r requirements/requirements.txt
 before_script:

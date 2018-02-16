@@ -1,4 +1,4 @@
-# graphql-python
+# PlatyPlus API
 
 Create a virtual environment:
 ```bash
