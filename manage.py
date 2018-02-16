@@ -1,15 +1,21 @@
 #!/usr/bin/env python
+"""
+Wrapper around ``django-admin.py``.
+This requires the environment variable ``DJANGO_ENV`` defining the deployment environment.
+It defines ``DJANGO_SETTINGS_MODULE`` based on the current deployment environment.
+"""
 import os
 import sys
 
+from django.core.exceptions import ImproperlyConfigured
+
+
 if __name__ == "__main__":
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "platyplus.settings")
-    try:
-        from django.core.management import execute_from_command_line
-    except ImportError as exc:
-        raise ImportError(
-            "Couldn't import Django. Are you sure it's installed and "
-            "available on your PYTHONPATH environment variable? Did you "
-            "forget to activate a virtual environment?"
-        ) from exc
+    DJANGO_ENV = os.environ.get("DJANGO_ENV")
+    if DJANGO_ENV is None:
+        raise ImproperlyConfigured("The deployment environment 'DJANGO_ENV' is not defined in environment variables.")
+
+    os.environ["DJANGO_SETTINGS_MODULE"] = "platyplus.settings.{}".format(DJANGO_ENV)
+
+    from django.core.management import execute_from_command_line
     execute_from_command_line(sys.argv)
