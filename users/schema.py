@@ -52,7 +52,6 @@ class LogIn(graphene.Mutation):
 
     @classmethod
     def mutate(cls, root, info, username, password):
-        logger.error('Login mutation!!!')
         user = authenticate(username=username, password=password)
 
         if user is None:
