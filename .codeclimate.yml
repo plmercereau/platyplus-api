@@ -1,0 +1,11 @@
+languages:
+  JavaScript: true
+  Python: true
+
+exclude_paths:
+- "**/runtests.py"
+- "**/tests.py"
+- "**/tests/*"
+- "**/migrations/*"
+- "**/south_migrations/*"
+- "docs/*"

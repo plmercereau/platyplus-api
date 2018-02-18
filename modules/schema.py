@@ -202,8 +202,6 @@ class UpsertStage(graphene.relay.ClientIDMutation):
         next_stages_ids = graphene.List(graphene.ID)
 
     def mutate_and_get_payload(root, info, **input):
-        import time
-        time.sleep(5)  # TODO remove
         user = get_user(info) or None
         if not input.get('id'):
             stage = Stage()
