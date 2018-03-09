@@ -55,14 +55,8 @@ class ModuleNode(DjangoObjectType):
 
     @classmethod
     def get_node(cls, info, id):
-        logger.error('get node')
-        logger.error(id)
-        logger.error(info)
         if id is not None:
-            if id == 'default':
-                return Module()
-            else:
-                return Module.objects.get(pk=id)
+            return Module.objects.get(pk=id)
         return None
 
 

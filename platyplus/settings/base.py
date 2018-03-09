@@ -52,6 +52,7 @@ PROJECT_APPS = [
     'modules',
 ]
 THIRD_PARTY_APPS = [
+    'mptt',
     'graphene_django',
     'corsheaders',
 ]
