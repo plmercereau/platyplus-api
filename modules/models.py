@@ -22,7 +22,7 @@ class TrackedEntityAttribute(NameModel, DHIS2Model, TimeStampedModel, StatusMode
 
 class TrackedEntity(NameModel, DHIS2Model, TimeStampedModel, StatusModel, SoftDeletableModel, OwnedModel):
     STATUS = MODEL_STATUS
-    attributes = models.ManyToManyField(TrackedEntityAttribute, related_name='tracked_entities', blank=True)
+    attributes = models.ManyToManyField(TrackedEntityAttribute, related_name='tracked_entities', null=True)
 
     class Meta:
         verbose_name = 'tracked entity'
@@ -31,10 +31,10 @@ class TrackedEntity(NameModel, DHIS2Model, TimeStampedModel, StatusModel, SoftDe
 
 class Module(NameModel, DHIS2Model, TimeStampedModel, StatusModel, SoftDeletableModel, OwnedModel):
     STATUS = MODEL_STATUS
-    authorized_org_units = models.ManyToManyField(OrgUnit, related_name='available_modules', blank=True)
+    authorized_org_units = models.ManyToManyField(OrgUnit, related_name='available_modules', null=True)
 
     # url = models.URLField()
-    # description = models.TextField(null=True, blank=True)
+    # description = models.TextField(null=True, null=True)
     # posted_by = models.ForeignKey('users.User', null=True, on_delete=models.deletion.CASCADE)
     class Meta:
         verbose_name = 'module'
@@ -51,14 +51,14 @@ class ObservationForm(NameModel, TimeStampedModel, StatusModel, SoftDeletableMod
 
 class Stage(NameModel, DHIS2Model, TimeStampedModel, StatusModel, SoftDeletableModel):
     STATUS = MODEL_STATUS
-    module = models.ForeignKey(Module, related_name='stages', on_delete=models.CASCADE, blank=True)
+    module = models.ForeignKey(Module, related_name='stages', on_delete=models.CASCADE, null=True)
     is_single_dhi2_event = models.BooleanField
     is_anonymous_single_dhis2_event = models.BooleanField
     is_dhis2_stage = models.BooleanField
     entry_stage = models.BooleanField
     exit_stage = models.BooleanField
-    next_stages = models.ManyToManyField(to='self', related_name='previous_stages', blank=True)
-    observation_forms = models.ManyToManyField(ObservationForm, related_name='stages', blank=True)
+    next_stages = models.ManyToManyField(to='self', related_name='previous_stages', null=True)
+    observation_forms = models.ManyToManyField(ObservationForm, related_name='stages', null=True)
 
     class Meta:
         verbose_name = 'stage'
@@ -66,8 +66,8 @@ class Stage(NameModel, DHIS2Model, TimeStampedModel, StatusModel, SoftDeletableM
 
 
 class EventDataElement(CoreModel, TimeStampedModel, SoftDeletableModel):
-    data_element = models.ForeignKey(DataElement, on_delete=models.CASCADE, blank=True)
-    stage = models.ForeignKey(Stage, related_name='event_data_elements', on_delete=models.CASCADE, blank=True)
+    data_element = models.ForeignKey(DataElement, on_delete=models.CASCADE, null=True)
+    stage = models.ForeignKey(Stage, related_name='event_data_elements', on_delete=models.CASCADE, null=True)
     is_in_single_event = models.BooleanField
     is_in_multiple_event = models.BooleanField
     # TODO must/should/would/could
